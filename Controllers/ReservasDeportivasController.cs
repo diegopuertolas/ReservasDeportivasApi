@@ -91,7 +91,7 @@ public class ReservasDeportivasController : ControllerBase
     }
 
     [HttpPut("{id}/confirmar")]
-    public IActionResult Put(int id)
+    public IActionResult PutConfirmarReserva(int id)
     {
         var result = reservas.FirstOrDefault(r => r.Id == id);
 
