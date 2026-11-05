@@ -58,4 +58,16 @@ public class ReservasDeportivasController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        var result = reservas.FirstOrDefault(r => r.Id == id);
+
+        if (result is null) return NotFound();
+
+        reservas.Remove(result);
+
+        return NoContent();
+    }
 }
