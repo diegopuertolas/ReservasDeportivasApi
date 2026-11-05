@@ -31,7 +31,7 @@ public class ReservasDeportivasController : ControllerBase
     }
 
     [HttpGet("recientes")]
-    public ActionResult<Reserva> GetReservasRecientes([FromQuery] int cantidad = 5)
+    public ActionResult<IEnumerable<Reserva>> GetReservasRecientes([FromQuery] int cantidad = 5)
     {
         if (cantidad <= 0) return BadRequest();
  
