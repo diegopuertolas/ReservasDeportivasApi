@@ -42,4 +42,20 @@ public class ReservasDeportivasController : ControllerBase
 
         return CreatedAtAction(nameof(GetById), new { Id = reserva.Id }, reserva);
     }
+
+    [HttpPut("{id}")]
+    public IActionResult Put(int id, [FromBody] Reserva reserva)
+    {
+        var result = reservas.FirstOrDefault(r => r.Id == id);
+
+        if (result is null) return NotFound();
+
+        result.NombreCliente = reserva.NombreCliente;
+        result.Instalacion = reserva.Instalacion;
+        result.Fecha = reserva.Fecha;
+        result.DuracionHoras = reserva.DuracionHoras;
+        result.RequiereMaterial = reserva.RequiereMaterial;
+
+        return NoContent();
+    }
 }
