@@ -19,4 +19,14 @@ public class ReservasDeportivasController : ControllerBase
     {
         return Ok(reservas);
     }
+
+    [HttpGet("{id}")]
+    public ActionResult<Reserva> GetById(int id)
+    {
+        var result = reservas.FirstOrDefault(r => r.Id == id);
+
+        if (result is null) return NotFound();
+
+        return Ok(result);
+    }
 }
