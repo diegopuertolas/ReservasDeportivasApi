@@ -29,4 +29,17 @@ public class ReservasDeportivasController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpPost]
+    public ActionResult<Reserva> Post([FromBody] Reserva reserva)
+    {
+        var nuevoId = reservas.Count > 0 ? reservas.Max(r => r.Id) + 1 : 1;
+
+        reserva.Id = nuevoId;
+        reserva.Estado = Enums.EstadoReservaEnum.Pendiente;
+
+        reservas.Add(reserva);
+
+        return CreatedAtAction(nameof(GetById), new { Id = reserva.Id }, reserva);
+    }
 }
