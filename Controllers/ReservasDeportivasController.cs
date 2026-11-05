@@ -64,6 +64,14 @@ public class ReservasDeportivasController : ControllerBase
     {
         var nuevoId = reservas.Count > 0 ? reservas.Max(r => r.Id) + 1 : 1;
 
+        if (string.IsNullOrWhiteSpace(reserva.NombreCliente) 
+            || string.IsNullOrWhiteSpace(reserva.Instalacion)
+            || reserva.DuracionHoras <= 0)
+        {
+            return BadRequest();
+        }
+
+
         reserva.Id = nuevoId;
         reserva.Estado = Enums.EstadoReservaEnum.Pendiente;
 
