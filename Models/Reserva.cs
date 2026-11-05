@@ -10,4 +10,5 @@ public class Reserva
     public DateTime Fecha { get; set; }
     public int DuracionHoras { get; set; }
     public EstadoReservaEnum Estado { get; set; }
+    public bool RequiereMaterial { get; set; }
 }
