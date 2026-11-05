@@ -39,7 +39,9 @@ public class ReservasDeportivasController : ControllerBase
             .OrderByDescending(r => r.Fecha)
             .Take(cantidad)
             .ToList();
-                    
+
+        if (result.Count == 0) return new List<Reserva>();
+
         return Ok(result);
     }
 
