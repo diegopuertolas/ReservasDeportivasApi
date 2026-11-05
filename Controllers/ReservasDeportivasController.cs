@@ -59,6 +59,20 @@ public class ReservasDeportivasController : ControllerBase
         return NoContent();
     }
 
+    [HttpPut("{id}/confirmar")]
+    public IActionResult Put(int id)
+    {
+        var result = reservas.FirstOrDefault(r => r.Id == id);
+
+        if (result is null) return NotFound();
+
+        if (result.Estado == Enums.EstadoReservaEnum.Confirmada) return BadRequest();
+
+        result.Estado = Enums.EstadoReservaEnum.Confirmada;
+
+        return NoContent();
+    }
+
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
