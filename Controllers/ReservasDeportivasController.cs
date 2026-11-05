@@ -10,8 +10,8 @@ public class ReservasDeportivasController : ControllerBase
     private static List<Reserva> reservas = new List<Reserva>
     {
         new Reserva(1, "Diego", "Gimnasio", DateTime.Now, 2, Enums.EstadoReservaEnum.Confirmada, true),
-        new Reserva(2, "Hugo", "Pista atletismo", DateTime.Now, 1, Enums.EstadoReservaEnum.Pendiente,false),
-        new Reserva(3, "David", "Campo Fútbol 11", DateTime.Now, 3, Enums.EstadoReservaEnum.Confirmada, true)
+        new Reserva(2, "Hugo", "Pista atletismo", DateTime.Now.AddHours(3), 1, Enums.EstadoReservaEnum.Pendiente,false),
+        new Reserva(3, "David", "Campo Fútbol 11", DateTime.Now.AddHours(5), 3, Enums.EstadoReservaEnum.Confirmada, true)
     };    
 
     [HttpGet]
@@ -26,6 +26,19 @@ public class ReservasDeportivasController : ControllerBase
         var result = reservas.FirstOrDefault(r => r.Id == id);
 
         if (result is null) return NotFound();
+
+        return Ok(result);
+    }
+
+    [HttpGet("recientes")]
+    public ActionResult<Reserva> GetReservasRecientes([FromQuery] int cantidad = 5)
+    {
+        if (cantidad <= 0) return BadRequest();
+ 
+        var result = reservas
+            .OrderByDescending(r => r.Fecha)
+            .Take(cantidad)
+            .ToList();
 
         return Ok(result);
     }
