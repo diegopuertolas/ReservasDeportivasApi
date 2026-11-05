@@ -39,7 +39,21 @@ public class ReservasDeportivasController : ControllerBase
             .OrderByDescending(r => r.Fecha)
             .Take(cantidad)
             .ToList();
+                    
+        return Ok(result);
+    }
 
+    [HttpGet("buscar")]
+    public ActionResult<IEnumerable<Reserva>> GetReservasPorNombreCliente([FromQuery] string cliente)
+    {
+        if (string.IsNullOrWhiteSpace(cliente)) return BadRequest();
+ 
+        var result = reservas
+            .Where(r => r.NombreCliente.Contains(cliente, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        if (result.Count == 0) return new List<Reserva>();
+        
         return Ok(result);
     }
 
